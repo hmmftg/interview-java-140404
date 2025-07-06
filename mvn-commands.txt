@@ -1,0 +1,10 @@
+mvn archetype:generate "-DgroupId=com.hmmftg" "-DartifactId=transaction-bench"  "-DinteractiveMode=false"
+
+mvn install:install-file "-Dfile=D:\dev\Java\libs\maven-install-plugin-3.1.4.jar" "-DpomFile=D:\dev\Java\libs\maven-install-plugin-3.1.4.pom" "-DgroupId=org.apache.maven.plugins" "-DartifactId=maven-install-plugin" "-Dversion=3.1.4" "-Dpackaging=jar"
+mvn install:install-file "-Dfile=D:\dev\Java\libs\maven-shade-plugin-3.6.0.jar" "-DpomFile=D:\dev\Java\libs\maven-shade-plugin-3.6.0.pom" "-DgroupId=org.apache.maven.plugins" "-DartifactId=maven-shade-plugin" "-Dversion=3.6.0" "-Dpackaging=jar"
+
+mvn install:install-file "-Dfile=D:\dev\Java\libs\jmh-generator-maven-plugin-0.5.2.jar" "-DpomFile=D:\dev\Java\libs\jmh-generator-maven-plugin-0.5.2.pom" "-DgroupId=org.openjdk.jmh" "-DartifactId=jmh-generator-maven-plugin" "-Dversion=0.5.2" "-Dpackaging=jar"
+
+mvn install:install-file "-Dfile=D:\dev\Java\libs\exec-maven-plugin-3.5.1.jar" "-DpomFile=D:\dev\Java\libs\exec-maven-plugin-3.5.1.pom" "-DgroupId=org.codehaus.mojo" "-DartifactId=exec-maven-plugin" "-Dversion=3.5.1" "-Dpackaging=jar"
+mvn install:install-file "-Dfile=D:\dev\Java\libs\commons-exec-1.5.0.jar" "-DpomFile=D:\dev\Java\libs\commons-exec-1.5.0.pom" "-DgroupId=org.apache.commons" "-DartifactId=commons-exec" "-Dversion=1.5.0" "-Dpackaging=jar"
+mvn install:install-file "-Dfile=D:\dev\Java\libs\plexus-utils-4.0.2.jar" "-DpomFile=D:\dev\Java\libs\plexus-utils-4.0.2.pom" "-DgroupId=org.codehaus.plexus" "-DartifactId=plexus-utils" "-Dversion=4.0.2" "-Dpackaging=jar"
