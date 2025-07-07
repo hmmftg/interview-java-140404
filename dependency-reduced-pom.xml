@@ -39,6 +39,18 @@
                   <mainClass>org.openjdk.jmh.Main</mainClass>
                 </transformer>
               </transformers>
+              <artifactSet>
+                <includes>
+                  <include>com.hmmftg.bench:transaction-bench</include>
+                  <include>junit:junit</include>
+                  <include>junit:junit-*</include>
+                  <include>org.junit.jupiter:junit-jupiter-api</include>
+                  <include>org.junit.jupiter:junit-jupiter-engine</include>
+                  <include>org.openjdk.jmh:jmh-core</include>
+                  <include>org.openjdk.jmh:jmh-generator-annprocess</include>
+                  <include>net.sf.dev.jopt-simple:jopt-simple</include>
+                </includes>
+              </artifactSet>
             </configuration>
           </execution>
         </executions>
@@ -84,6 +96,11 @@
             <goals>
               <goal>benchmark</goal>
             </goals>
+            <configuration>
+              <includes>
+                <include>**/*Test*.java</include>
+              </includes>
+            </configuration>
           </execution>
         </executions>
         <configuration>
@@ -92,7 +109,7 @@
           <workingDirectory>${project.basedir}</workingDirectory>
           <fork>2</fork>
           <iterations>4</iterations>
-          <threads>4</threads>
+          <threads>1</threads>
           <warmupIterations>1</warmupIterations>
         </configuration>
       </plugin>
@@ -140,6 +157,12 @@
           <groupId>org.apiguardian</groupId>
         </exclusion>
       </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>net.sf.jopt-simple</groupId>
+      <artifactId>jopt-simple</artifactId>
+      <version>5.0.4</version>
+      <scope>compile</scope>
     </dependency>
   </dependencies>
   <properties>

@@ -37,6 +37,11 @@
       <version>5.9.0</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>net.sf.jopt-simple</groupId>
+      <artifactId>jopt-simple</artifactId>
+      <version>5.0.4</version>
+    </dependency>
   </dependencies>
   <build>
     <plugins>
@@ -74,6 +79,18 @@
                   <mainClass>org.openjdk.jmh.Main</mainClass>
                 </transformer>
               </transformers>
+              <artifactSet>
+                <includes>
+                  <include>com.hmmftg.bench:transaction-bench</include>
+                  <include>junit:junit</include>
+                  <include>junit:junit-*</include>
+                  <include>org.junit.jupiter:junit-jupiter-api</include>
+                  <include>org.junit.jupiter:junit-jupiter-engine</include>
+                  <include>org.openjdk.jmh:jmh-core</include>
+                  <include>org.openjdk.jmh:jmh-generator-annprocess</include>
+                  <include>net.sf.dev.jopt-simple:jopt-simple</include>
+                </includes>
+              </artifactSet>
             </configuration>
           </execution>
         </executions>
@@ -129,6 +146,11 @@
             <goals>
               <goal>benchmark</goal>
             </goals>
+            <configuration>
+              <includes>
+                <include>**/*Test*.java</include>
+              </includes>
+            </configuration>
           </execution>
         </executions>
       </plugin>
