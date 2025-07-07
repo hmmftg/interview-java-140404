@@ -25,9 +25,10 @@ dependencies {
 }
 
 jmh {
-    iterations = 5
-    threads = 4
+    iterations = 4
+    threads = 1
     fork = 2
+    warmupIterations = 1
 }
 
 test {
