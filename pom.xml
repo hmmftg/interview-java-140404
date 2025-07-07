@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.hmmftg</groupId>
@@ -9,8 +10,8 @@
   <url>http://maven.apache.org</url>
   <properties>
     <jmh.version>1.37</jmh.version>
-    <maven.compiler.source>24</maven.compiler.source>  
-    <maven.compiler.target>24</maven.compiler.target>  
+    <maven.compiler.source>21</maven.compiler.source>
+    <maven.compiler.target>21</maven.compiler.target>
   </properties>
   <dependencies>
     <dependency>
@@ -24,6 +25,18 @@
       <version>${jmh.version}</version>
       <scope>provided</scope>
     </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <version>5.9.0</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <version>5.9.0</version>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
   <build>
     <plugins>
@@ -32,8 +45,8 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.11.0</version>
         <configuration>
-          <source>${maven.compiler.source}</source>  
-          <target>${maven.compiler.target}</target>  
+          <source>${maven.compiler.source}</source>
+          <target>${maven.compiler.target}</target>
           <annotationProcessorPaths>
             <path>
               <groupId>org.openjdk.jmh</groupId>
@@ -42,61 +55,6 @@
             </path>
           </annotationProcessorPaths>
         </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-install-plugin</artifactId>
-        <version>3.1.4</version>
-        <executions>
-          <execution>
-            <id>install-jmh-core</id>
-            <phase>initialize</phase>
-            <goals>
-              <goal>install-file</goal>
-            </goals>
-            <configuration>
-              <!-- path to your jar in the project -->
-              <file>${project.basedir}/lib/jmh-core-1.37.jar</file>
-              <!-- coordinates you want it to have in your local repo -->
-              <groupId>org.openjdk.jmh</groupId>
-              <artifactId>jmh-core</artifactId>
-              <version>${jmh.version}</version>
-              <packaging>jar</packaging>
-            </configuration>
-          </execution>
-          <execution>
-            <id>install-jmh-ann</id>
-            <phase>initialize</phase>
-            <goals>
-              <goal>install-file</goal>
-            </goals>
-            <configuration>
-              <!-- path to your jar in the project -->
-              <file>${project.basedir}/lib/jmh-generator-annprocess-1.37.jar</file>
-              <!-- coordinates you want it to have in your local repo -->
-              <groupId>org.openjdk.jmh</groupId>
-              <artifactId>jmh-generator-annprocess</artifactId>
-              <version>${jmh.version}</version>
-              <packaging>jar</packaging>
-            </configuration>
-          </execution>
-          <execution>
-            <id>install-jmh-ref</id>
-            <phase>initialize</phase>
-            <goals>
-              <goal>install-file</goal>
-            </goals>
-            <configuration>
-              <!-- path to your jar in the project -->
-              <file>${project.basedir}/lib/jmh-generator-reflection-1.37.jar</file>
-              <!-- coordinates you want it to have in your local repo -->
-              <groupId>org.openjdk.jmh</groupId>
-              <artifactId>jmh-generator-reflection</artifactId>
-              <version>${jmh.version}</version>
-              <packaging>jar</packaging>
-            </configuration>
-          </execution>
-        </executions>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -112,7 +70,7 @@
               <finalName>benchmarks</finalName>
               <transformers>
                 <transformer
-                    implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                  implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                   <mainClass>org.openjdk.jmh.Main</mainClass>
                 </transformer>
               </transformers>
@@ -137,26 +95,34 @@
               <arguments>
                 <argument>-jar</argument>
                 <argument>${project.build.directory}/benchmarks.jar</argument>
-                <argument>-t</argument><argument>1</argument>                      <!-- threads -->
-                <argument>-wi</argument><argument>5</argument>                      <!-- warmup iters -->
-                <argument>-i</argument><argument>10</argument>                     <!-- measurement iters -->
-                <argument>-f</argument><argument>1</argument>                      <!-- forks -->
-                <argument>-tu</argument><argument>us</argument>          <!-- time unit -->
+                <argument>-t</argument>
+                <argument>4</argument>                      <!-- threads -->
+                <argument>-wi</argument>
+                <argument>0</argument>                      <!-- warmup iters -->
+                <argument>-i</argument>
+                <argument>5</argument>                     <!-- measurement iters -->
+                <argument>-f</argument>
+                <argument>4</argument>                      <!-- forks -->
+                <argument>-tu</argument>
+                <argument>us</argument>          <!-- time unit -->
               </arguments>
             </configuration>
           </execution>
         </executions>
       </plugin>
-
       <plugin>
         <groupId>pw.krejci</groupId>
         <artifactId>jmh-maven-plugin</artifactId>
         <version>0.2.2</version>
         <configuration>
-          <source>1.24</source>
-          <target>1.24</target>
+          <source>21</source>
+          <target>21</target>
           <!-- run the benchmarks from the project base dir-->
           <workingDirectory>${project.basedir}</workingDirectory>
+          <fork>2</fork>
+          <iterations>4</iterations>
+          <threads>1</threads>
+          <warmupIterations>1</warmupIterations>
         </configuration>
         <executions>
           <execution>
@@ -166,7 +132,6 @@
           </execution>
         </executions>
       </plugin>
-      
     </plugins>
   </build>
 </project>

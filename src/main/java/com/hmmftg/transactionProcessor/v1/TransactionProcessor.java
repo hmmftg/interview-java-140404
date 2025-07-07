@@ -11,20 +11,21 @@ public class TransactionProcessor {
     public static void main(String[] args) {
         String filePath = args.length > 0 ? args[0] : "sample.txt";
         long start = System.currentTimeMillis();
-        processTransactions(filePath);
+        String result = processTransactions(filePath);
         long end = System.currentTimeMillis();
         System.out.println("Execution took " + (end - start) + " ms");
+        System.out.println(result);
     }
 
-    public static void processTransactions(String filePath) {
+    public static String processTransactions(String filePath) {
         try (FileReader fr = new FileReader(filePath)) {
-            processTransactions(fr);
+            return processTransactions(fr);
         } catch (IOException e) {
-            System.out.println("Error processing transactions: " + e.getMessage());
+            return "Error processing transactions: " + e.getMessage();
         }
     }
 
-    public static void processTransactions(Reader br) {
+    public static String processTransactions(Reader br) {
         try (BufferedReader reader = new BufferedReader(br)) {
             String line;
             reader.readLine(); // Skip header
@@ -57,17 +58,20 @@ public class TransactionProcessor {
                 count++;
             }
 
-            System.out.println("Count: " + count);
-            System.out.println("Sum: " + sum);
+            StringBuilder result = new StringBuilder();
+            result.append("Count: ").append(count).append("\n");
+            result.append("Sum: ").append(sum).append("\n");
 
-            System.out.println("Duplicate Transactions:");
+            result.append("Duplicate Transactions:\n");
             for (Map.Entry<String, Transaction> entry : transactionMap.entrySet()) {
                 if (entry.getValue().getCount() > 1) {
-                    System.out.println(entry.getValue());
+                    result.append(entry.getValue()).append("\n");
                 }
             }
+
+            return result.toString();
         } catch (IOException e) {
-            System.out.println("Error processing transactions: " + e.getMessage());
+            return "Error processing transactions: " + e.getMessage();
         }
     }
 
@@ -83,6 +87,7 @@ public class TransactionProcessor {
             // this.ssn = ssn;
         }
 
+        @Override
         public String toString() {
             return "Source Account: " + sourceAccount + ", Amount: " + amount + ", Count: " + count;
         }

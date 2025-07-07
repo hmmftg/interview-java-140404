@@ -25,14 +25,9 @@ public class PerformanceTest {
         String filePath = "sample.txt"; 
 
         List<String> versions = Arrays.asList(
-            "jfiddle.TransactionProcessor",  // Version 1
-            "llama4.TransactionProcessor",   // Version 2
-            "gpt.TransactionProcessor",      // Version 3
-            "v4.TransactionProcessor",       // Version 4
-            "v5.TransactionProcessor",       // Version 5
-            "v7.TransactionProcessor",       // Version 6
-            "v10.TransactionProcessor"       // Version 7
-            // add more here...
+            "v1.TransactionProcessor",  // Version 1
+            "v2.TransactionProcessor",   // Version 2
+            "v3.TransactionProcessor"      // Version 3
         );
 
         for (String version : versions) {

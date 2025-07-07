@@ -31,32 +31,32 @@ public class TransactionProcessorBenchmark {
   /**
    * Common runner that feeds the same data to each version.
    */
-  private void runVersion(String className, String sampleData) throws Exception {
+  private String runVersion(String className, String sampleData) throws Exception {
     // Redirect System.in to our sampleData
     InputStream originalIn = System.in;
     try {
       System.setIn(new java.io.ByteArrayInputStream(
                        sampleData.getBytes(StandardCharsets.UTF_8)));
       Class<?> cls = Class.forName(className);
-        Method m = cls.getMethod("processTransactions", java.io.Reader.class);
-        m.invoke(null, new StringReader(sampleData));
+      Method m = cls.getMethod("processTransactions", java.io.Reader.class);
+      return (String) m.invoke(null, new StringReader(sampleData));
     } finally {
       System.setIn(originalIn);
     }
   }
 
   @Benchmark
-  public void v1() throws Exception {
-    runVersion("com.hmmftg.transactionProcessor.v1.TransactionProcessor", sampleData);
+  public String v1() throws Exception {
+    return runVersion("com.hmmftg.transactionProcessor.v1.TransactionProcessor", sampleData);
   }
 
   @Benchmark
-  public void v2() throws Exception {
-    runVersion("com.hmmftg.transactionProcessor.v2.TransactionProcessor", sampleData);
+  public String v2() throws Exception {
+    return runVersion("com.hmmftg.transactionProcessor.v2.TransactionProcessor", sampleData);
   }
 
   @Benchmark
-  public void v3() throws Exception {
-    runVersion("com.hmmftg.transactionProcessor.v3.TransactionProcessor", sampleData);
+  public String v3() throws Exception {
+    return runVersion("com.hmmftg.transactionProcessor.v3.TransactionProcessor", sampleData);
   }
 }

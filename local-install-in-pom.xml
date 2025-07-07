@@ -1,0 +1,56 @@
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-install-plugin</artifactId>
+        <version>3.1.4</version>
+        <executions>
+          <execution>
+            <id>install-jmh-core</id>
+            <phase>initialize</phase>
+            <goals>
+              <goal>install-file</goal>
+            </goals>
+            <configuration>
+              <!-- path to your jar in the project -->
+              <file>${project.basedir}/lib/jmh-core-1.37.jar</file>
+              <!-- coordinates you want it to have in your local repo -->
+              <groupId>org.openjdk.jmh</groupId>
+              <artifactId>jmh-core</artifactId>
+              <version>${jmh.version}</version>
+              <packaging>jar</packaging>
+            </configuration>
+          </execution>
+          <execution>
+            <id>install-jmh-ann</id>
+            <phase>initialize</phase>
+            <goals>
+              <goal>install-file</goal>
+            </goals>
+            <configuration>
+              <!-- path to your jar in the project -->
+              <file>${project.basedir}/lib/jmh-generator-annprocess-1.37.jar</file>
+              <!-- coordinates you want it to have in your local repo -->
+              <groupId>org.openjdk.jmh</groupId>
+              <artifactId>jmh-generator-annprocess</artifactId>
+              <version>${jmh.version}</version>
+              <packaging>jar</packaging>
+            </configuration>
+          </execution>
+          <execution>
+            <id>install-jmh-ref</id>
+            <phase>initialize</phase>
+            <goals>
+              <goal>install-file</goal>
+            </goals>
+            <configuration>
+              <!-- path to your jar in the project -->
+              <file>${project.basedir}/lib/jmh-generator-reflection-1.37.jar</file>
+              <!-- coordinates you want it to have in your local repo -->
+              <groupId>org.openjdk.jmh</groupId>
+              <artifactId>jmh-generator-reflection</artifactId>
+              <version>${jmh.version}</version>
+              <packaging>jar</packaging>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>

@@ -60,20 +60,21 @@ public class TransactionProcessor {
     public static void main(String[] args) {
         String filePath = "sample.txt"; // Update with your file path
         long startTime = System.currentTimeMillis();
-        processTransactions(filePath);
+        String result = processTransactions(filePath);
         long endTime = System.currentTimeMillis();
         System.out.println("Execution Time: " + (endTime - startTime) + " milliseconds");
+        System.out.println(result);
     }
 
-    public static void processTransactions(String filePath) {
+    public static String processTransactions(String filePath) {
         try (FileReader fr = new FileReader(filePath)) {
-            processTransactions(fr);
+            return processTransactions(fr);
         } catch (IOException e) {
-            System.out.println("Error processing transactions: " + e.getMessage());
+            return "Error processing transactions: " + e.getMessage();
         }
     }
 
-    public static void processTransactions(Reader br) {
+    public static String processTransactions(Reader br) {
         Map<TransactionKey, Transaction> transactionMap = new HashMap<>();
         long totalAmount = 0;
         long totalRows = 0;
@@ -118,9 +119,9 @@ public class TransactionProcessor {
                     output.append(transaction).append("\n");
                 }
             }
-            System.out.print(output.toString());
+            return output.toString();
         } catch (IOException e) {
-            System.err.println("Error processing transactions: " + e.getMessage());
+            return "Error processing transactions: " + e.getMessage();
         }
     }
 }

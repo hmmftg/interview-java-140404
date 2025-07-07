@@ -12,9 +12,8 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.11.0</version>
         <configuration>
-          <release>24</release>
-          <source>1.24</source>
-          <target>1.24</target>
+          <source>${maven.compiler.source}</source>
+          <target>${maven.compiler.target}</target>
           <annotationProcessorPaths>
             <path>
               <groupId>org.openjdk.jmh</groupId>
@@ -23,54 +22,6 @@
             </path>
           </annotationProcessorPaths>
         </configuration>
-      </plugin>
-      <plugin>
-        <artifactId>maven-install-plugin</artifactId>
-        <version>3.1.4</version>
-        <executions>
-          <execution>
-            <id>install-jmh-core</id>
-            <phase>initialize</phase>
-            <goals>
-              <goal>install-file</goal>
-            </goals>
-            <configuration>
-              <file>${project.basedir}/lib/jmh-core-1.37.jar</file>
-              <groupId>org.openjdk.jmh</groupId>
-              <artifactId>jmh-core</artifactId>
-              <version>${jmh.version}</version>
-              <packaging>jar</packaging>
-            </configuration>
-          </execution>
-          <execution>
-            <id>install-jmh-ann</id>
-            <phase>initialize</phase>
-            <goals>
-              <goal>install-file</goal>
-            </goals>
-            <configuration>
-              <file>${project.basedir}/lib/jmh-generator-annprocess-1.37.jar</file>
-              <groupId>org.openjdk.jmh</groupId>
-              <artifactId>jmh-generator-annprocess</artifactId>
-              <version>${jmh.version}</version>
-              <packaging>jar</packaging>
-            </configuration>
-          </execution>
-          <execution>
-            <id>install-jmh-ref</id>
-            <phase>initialize</phase>
-            <goals>
-              <goal>install-file</goal>
-            </goals>
-            <configuration>
-              <file>${project.basedir}/lib/jmh-generator-reflection-1.37.jar</file>
-              <groupId>org.openjdk.jmh</groupId>
-              <artifactId>jmh-generator-reflection</artifactId>
-              <version>${jmh.version}</version>
-              <packaging>jar</packaging>
-            </configuration>
-          </execution>
-        </executions>
       </plugin>
       <plugin>
         <artifactId>maven-shade-plugin</artifactId>
@@ -110,13 +61,13 @@
                 <argument>-jar</argument>
                 <argument>${project.build.directory}/benchmarks.jar</argument>
                 <argument>-t</argument>
-                <argument>1</argument>
+                <argument>4</argument>
                 <argument>-wi</argument>
-                <argument>5</argument>
+                <argument>0</argument>
                 <argument>-i</argument>
-                <argument>10</argument>
+                <argument>5</argument>
                 <argument>-f</argument>
-                <argument>1</argument>
+                <argument>4</argument>
                 <argument>-tu</argument>
                 <argument>us</argument>
               </arguments>
@@ -136,7 +87,13 @@
           </execution>
         </executions>
         <configuration>
+          <source>21</source>
+          <target>21</target>
           <workingDirectory>${project.basedir}</workingDirectory>
+          <fork>2</fork>
+          <iterations>4</iterations>
+          <threads>4</threads>
+          <warmupIterations>1</warmupIterations>
         </configuration>
       </plugin>
     </plugins>
@@ -148,8 +105,46 @@
       <version>1.37</version>
       <scope>provided</scope>
     </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <version>5.9.0</version>
+      <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <artifactId>opentest4j</artifactId>
+          <groupId>org.opentest4j</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>junit-platform-commons</artifactId>
+          <groupId>org.junit.platform</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>apiguardian-api</artifactId>
+          <groupId>org.apiguardian</groupId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <version>5.9.0</version>
+      <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <artifactId>junit-platform-engine</artifactId>
+          <groupId>org.junit.platform</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>apiguardian-api</artifactId>
+          <groupId>org.apiguardian</groupId>
+        </exclusion>
+      </exclusions>
+    </dependency>
   </dependencies>
   <properties>
     <jmh.version>1.37</jmh.version>
+    <maven.compiler.target>21</maven.compiler.target>
+    <maven.compiler.source>21</maven.compiler.source>
   </properties>
 </project>

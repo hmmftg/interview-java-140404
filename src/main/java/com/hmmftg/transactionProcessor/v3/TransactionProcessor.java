@@ -11,7 +11,7 @@ public class TransactionProcessor {
     public static void main(String[] args) throws IOException {
         String filePath = "sample.txt";
         long start = System.nanoTime();
-        Report report;
+        String report;
         try (FileReader fr = new FileReader(filePath)) {
             report = processTransactions(fr);
         } catch (IOException e) {
@@ -51,15 +51,25 @@ public class TransactionProcessor {
         }
     }
 
-    public static void processTransactions(String filePath) {
+    public static String processTransactions(String filePath) {
         try (FileReader fr = new FileReader(filePath)) {
-            processTransactions(fr);
+            String reportData=processTransactions(fr);
+            return reportData;
         } catch (IOException e) {
-            System.out.println("Error processing transactions: " + e.getMessage());
+            return "Error processing transactions: " + e.getMessage();
         }
     }
 
-    public static Report processTransactions(Reader br) throws IOException {
+    public static String processTransactions(Reader br) {
+        try {
+            Report rep=process(br);
+            return rep.toString();
+        } catch (IOException e) {
+            return "Error processing transactions: " + e.getMessage();
+        }
+    }
+
+    public static Report process(Reader br) throws IOException {
         // We expect at most ~200 distinct amounts here; tweak if you know it better
         Map<Long, int[]> countMap = new HashMap<>(256);
 
